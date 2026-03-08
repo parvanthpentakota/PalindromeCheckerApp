@@ -1,17 +1,8 @@
-class Node {
-    char data;
-    Node next;
-
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
 public class Main {
 
     public static void main(String[] args) {
 
+        String input = "madam";
         String input = "Level";
 
         // Build linked list
@@ -46,48 +37,26 @@ public class Main {
 
         boolean isPalindrome = input.equals(reversed);
 
-        boolean isPalindrome = checkPalindrome(head);
+        boolean isPalindrome = checkPalindrome(input, 0, input.length() - 1);
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
     }
 
-    public static boolean checkPalindrome(Node head) {
+    // Recursive function
+    public static boolean checkPalindrome(String str, int start, int end) {
 
-        if (head == null || head.next == null) return true;
-
-        Node slow = head;
-        Node fast = head;
-
-        // Find middle using fast & slow pointer
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        // Base condition
+        if (start >= end) {
+            return true;
         }
 
-        // Reverse second half
-        Node prev = null;
-        Node curr = slow;
-
-        while (curr != null) {
-            Node nextTemp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nextTemp;
+        // If characters do not match
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
         }
 
-        // Compare halves
-        Node first = head;
-        Node second = prev;
-
-        while (second != null) {
-            if (first.data != second.data) {
-                return false;
-            }
-            first = first.next;
-            second = second.next;
-        }
-
-        return true;
+        // Recursive call moving inward
+        return checkPalindrome(str, start + 1, end - 1);
     }
 }

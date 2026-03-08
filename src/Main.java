@@ -2,6 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        String input = "A man a plan a canal Panama";
         String input = "madam";
         String input = "Level";
 
@@ -37,26 +38,27 @@ public class Main {
 
         boolean isPalindrome = input.equals(reversed);
 
-        boolean isPalindrome = checkPalindrome(input, 0, input.length() - 1);
+        // Normalize string (remove spaces and convert to lowercase)
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        boolean isPalindrome = true;
+
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        // Compare characters
+        while (start < end) {
+
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
+        }
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
-    }
-
-    // Recursive function
-    public static boolean checkPalindrome(String str, int start, int end) {
-
-        // Base condition
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters do not match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call moving inward
-        return checkPalindrome(str, start + 1, end - 1);
     }
 }

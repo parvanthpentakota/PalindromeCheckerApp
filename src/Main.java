@@ -2,11 +2,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String input = "racecar";
+        String input = "Level";
 
-        PalindromeChecker checker = new PalindromeChecker();
+        // Choose strategy
+        PalindromeStrategy strategy = new StackStrategy();
+        // PalindromeStrategy strategy = new DequeStrategy();
 
-        boolean result = checker.checkPalindrome(input);
+        boolean result = strategy.check(input);
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);

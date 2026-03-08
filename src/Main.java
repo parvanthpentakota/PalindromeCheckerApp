@@ -2,6 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        String input = "Level";
         String input = "racecar";
         String input = "A man a plan a canal Panama";
         String input = "madam";
@@ -39,9 +40,11 @@ public class Main {
 
         boolean isPalindrome = input.equals(reversed);
 
-        PalindromeChecker checker = new PalindromeChecker();
+        // Choose strategy
+        PalindromeStrategy strategy = new StackStrategy();
+        // PalindromeStrategy strategy = new DequeStrategy();
 
-        boolean result = checker.checkPalindrome(input);
+        boolean result = strategy.check(input);
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);

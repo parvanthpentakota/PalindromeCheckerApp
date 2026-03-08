@@ -1,28 +1,30 @@
-import java.util.Stack;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String input = "civic";
+        // Define input string
+        String input = "refer";
 
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
+        // Create deque
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Insert characters into both structures
-        for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
-            queue.add(input.charAt(i));
+        // Insert characters into deque
+        for (char c : input.toCharArray()) {
+            deque.addLast(c);
         }
 
         boolean isPalindrome = true;
 
-        // Compare FIFO and LIFO outputs
-        while (!queue.isEmpty()) {
+        // Compare front and rear characters
+        while (deque.size() > 1) {
 
-            if (queue.remove() != stack.pop()) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+
+            if (first != last) {
                 isPalindrome = false;
                 break;
             }

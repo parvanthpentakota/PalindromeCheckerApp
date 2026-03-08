@@ -1,37 +1,77 @@
-import java.util.Deque;
-import java.util.ArrayDeque;
+class Node {
+    char data;
+    Node next;
+
+    Node(char data) {
+        this.data = data;
+        this.next = null;
+    }
+}
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // Define input string
-        String input = "refer";
+        String input = "Level";
 
-        // Create deque
-        Deque<Character> deque = new ArrayDeque<>();
+        // Build linked list
+        Node head = null;
+        Node tail = null;
 
-        // Insert characters into deque
         for (char c : input.toCharArray()) {
-            deque.addLast(c);
-        }
+            Node newNode = new Node(c);
 
-        boolean isPalindrome = true;
-
-        // Compare front and rear characters
-        while (deque.size() > 1) {
-
-            char first = deque.removeFirst();
-            char last = deque.removeLast();
-
-            if (first != last) {
-                isPalindrome = false;
-                break;
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
         }
 
-        // Required output format
+        boolean isPalindrome = checkPalindrome(head);
+
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
+    }
+
+    public static boolean checkPalindrome(Node head) {
+
+        if (head == null || head.next == null) return true;
+
+        Node slow = head;
+        Node fast = head;
+
+        // Find middle using fast & slow pointer
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse second half
+        Node prev = null;
+        Node curr = slow;
+
+        while (curr != null) {
+            Node nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+
+        // Compare halves
+        Node first = head;
+        Node second = prev;
+
+        while (second != null) {
+            if (first.data != second.data) {
+                return false;
+            }
+            first = first.next;
+            second = second.next;
+        }
+
+        return true;
     }
 }
